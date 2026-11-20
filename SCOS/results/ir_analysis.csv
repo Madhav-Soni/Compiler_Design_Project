@@ -1,0 +1,9 @@
+Pass,IR Lines,Instructions,Load Instructions,Store Instructions,Branch Instructions,Call Instructions,IR Size (Bytes)
+Original,138,54,21,16,12,4,5465
+mem2reg,98,29,1,1,12,4,4263
+sroa,98,29,1,1,12,4,4278
+instcombine,122,43,13,10,12,4,5196
+simplifycfg,129,54,21,16,9,4,5272
+dce,138,54,21,16,12,4,5512
+adce,138,54,21,16,12,4,5512
+gvn,111,36,1,16,9,4,4702

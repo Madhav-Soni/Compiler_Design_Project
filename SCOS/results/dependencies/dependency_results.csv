@@ -1,0 +1,13 @@
+Pass A,Pass B,Pipeline,IR Size
+mem2reg,instcombine,"mem2reg,instcombine",4377
+mem2reg,simplifycfg,"mem2reg,simplifycfg",3943
+mem2reg,gvn,"mem2reg,gvn",3938
+instcombine,mem2reg,"instcombine,mem2reg",4408
+instcombine,simplifycfg,"instcombine,simplifycfg",4956
+instcombine,gvn,"instcombine,gvn",4550
+simplifycfg,mem2reg,"simplifycfg,mem2reg",4023
+simplifycfg,instcombine,"simplifycfg,instcombine",4888
+simplifycfg,gvn,"simplifycfg,gvn",4702
+gvn,mem2reg,"gvn,mem2reg",3923
+gvn,instcombine,"gvn,instcombine",4120
+gvn,simplifycfg,"gvn,simplifycfg",4702
