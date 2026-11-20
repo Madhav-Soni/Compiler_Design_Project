@@ -1,7 +1,22 @@
 Pass A,Pass B,A then B,B then A,Sensitivity Score
 gvn,instcombine,4120,4550,430
 mem2reg,simplifycfg,3943,4023,80
+simplifycfg,sroa,4038,3958,80
 instcombine,simplifycfg,4956,4888,68
 instcombine,mem2reg,4408,4377,31
+gvn,sroa,3923,3953,30
+instcombine,sroa,4411,4392,19
 gvn,mem2reg,3923,3938,15
+mem2reg,sroa,4263,4278,15
+adce,dce,5512,5512,0
+adce,gvn,4702,4702,0
+adce,instcombine,5196,5196,0
+adce,mem2reg,4263,4263,0
+adce,simplifycfg,5272,5272,0
+adce,sroa,4278,4278,0
+dce,gvn,4702,4702,0
+dce,instcombine,5196,5196,0
+dce,mem2reg,4263,4263,0
+dce,simplifycfg,5272,5272,0
+dce,sroa,4278,4278,0
 gvn,simplifycfg,4702,4702,0

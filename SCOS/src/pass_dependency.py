@@ -16,8 +16,11 @@ OUTPUT_DIR = os.path.join(ROOT, "results", "dependencies")
 
 PASSES = [
     "mem2reg",
+    "sroa",
     "instcombine",
     "simplifycfg",
+    "dce",
+    "adce",
     "gvn",
 ]
 
