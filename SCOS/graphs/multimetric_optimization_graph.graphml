@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="edge" attr.name="weight" attr.type="double" />
+  <graph edgedefault="undirected">
+    <node id="instcombine" />
+    <node id="gvn" />
+    <node id="simplifycfg" />
+    <node id="mem2reg" />
+    <node id="sroa" />
+    <node id="dce" />
+    <node id="adce" />
+    <edge source="instcombine" target="gvn">
+      <data key="d0">20.88</data>
+    </edge>
+    <edge source="instcombine" target="simplifycfg">
+      <data key="d0">3.26</data>
+    </edge>
+    <edge source="instcombine" target="mem2reg">
+      <data key="d0">0.12</data>
+    </edge>
+    <edge source="instcombine" target="sroa">
+      <data key="d0">0.07</data>
+    </edge>
+    <edge source="gvn" target="sroa">
+      <data key="d0">0.13</data>
+    </edge>
+    <edge source="gvn" target="mem2reg">
+      <data key="d0">0.06</data>
+    </edge>
+    <edge source="simplifycfg" target="mem2reg">
+      <data key="d0">2.86</data>
+    </edge>
+    <edge source="simplifycfg" target="sroa">
+      <data key="d0">2.86</data>
+    </edge>
+    <edge source="mem2reg" target="sroa">
+      <data key="d0">0.06</data>
+    </edge>
+  </graph>
+</graphml>

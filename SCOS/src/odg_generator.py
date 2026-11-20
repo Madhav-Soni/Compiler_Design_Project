@@ -10,21 +10,20 @@ INPUT_CSV = os.path.join(
     ROOT,
     "results",
     "dependencies",
-    "order_sensitivity.csv"
+    "multimetric_sensitivity.csv"
 )
 
 GRAPH_DIR = os.path.join(ROOT, "graphs")
-
 os.makedirs(GRAPH_DIR, exist_ok=True)
 
 OUTPUT_PNG = os.path.join(
     GRAPH_DIR,
-    "optimization_dependence_graph.png"
+    "multimetric_optimization_graph.png"
 )
 
 OUTPUT_GRAPHML = os.path.join(
     GRAPH_DIR,
-    "optimization_dependence_graph.graphml"
+    "multimetric_optimization_graph.graphml"
 )
 
 
@@ -41,12 +40,13 @@ def build_graph():
             pass_a = row["Pass A"]
             pass_b = row["Pass B"]
 
-            score = int(row["Sensitivity Score"])
+            score = float(
+                row["Overall Sensitivity Score"]
+            )
 
             graph.add_node(pass_a)
             graph.add_node(pass_b)
 
-            # Ignore pairs with zero measured sensitivity
             if score > 0:
 
                 graph.add_edge(
@@ -58,14 +58,8 @@ def build_graph():
     return graph
 
 
+def calculate_positions(graph):
 
-
-def generate_visualization(graph):
-
-    if graph.number_of_edges() == 0:
-        raise ValueError("No positive-sensitivity edges found.")
-
-    # Identify connected components
     components = sorted(
         nx.connected_components(graph),
         key=len,
@@ -74,7 +68,7 @@ def generate_visualization(graph):
 
     position = {}
 
-    # Arrange the largest connected component in a circle
+    # Main connected component
     main_graph = graph.subgraph(components[0])
 
     main_position = nx.circular_layout(
@@ -84,25 +78,26 @@ def generate_visualization(graph):
 
     position.update(main_position)
 
-    # Position remaining components separately
-    for index, component in enumerate(components[1:]):
+    # Place disconnected nodes separately
+    isolated_nodes = [
+        node for node in graph.nodes()
+        if graph.degree(node) == 0
+    ]
 
-        subgraph = graph.subgraph(component)
+    for index, node in enumerate(isolated_nodes):
 
-        center_x = -4.2 if index % 2 == 0 else 4.2
-        center_y = 2.8
+        x = -4.0 + index * 8.0
+        position[node] = (x, 3.0)
 
-        sub_position = nx.circular_layout(
-            subgraph,
-            scale=0.7
-        )
+    return position
 
-        for node, (x, y) in sub_position.items():
 
-            position[node] = (
-                x + center_x,
-                y + center_y
-            )
+def generate_visualization(graph):
+
+    if graph.number_of_edges() == 0:
+        raise ValueError("No positive-sensitivity edges found.")
+
+    position = calculate_positions(graph)
 
     edge_weights = [
         data["weight"]
@@ -112,13 +107,12 @@ def generate_visualization(graph):
     max_weight = max(edge_weights)
 
     edge_widths = [
-        1.5 + 4 * (weight / max_weight)
+        1.5 + 5 * (weight / max_weight)
         for weight in edge_weights
     ]
 
     plt.figure(figsize=(14, 10))
 
-    # Draw edges
     nx.draw_networkx_edges(
         graph,
         position,
@@ -127,7 +121,6 @@ def generate_visualization(graph):
         alpha=0.75
     )
 
-    # Draw nodes
     nx.draw_networkx_nodes(
         graph,
         position,
@@ -137,7 +130,6 @@ def generate_visualization(graph):
         linewidths=1.5
     )
 
-    # Draw node labels
     nx.draw_networkx_labels(
         graph,
         position,
@@ -145,9 +137,8 @@ def generate_visualization(graph):
         font_weight="bold"
     )
 
-    # Draw edge weights
     edge_labels = {
-        (u, v): f"{data['weight']} bytes"
+        (u, v): f"{data['weight']:.2f}"
         for u, v, data in graph.edges(data=True)
     }
 
@@ -166,7 +157,7 @@ def generate_visualization(graph):
     )
 
     plt.title(
-        "SCOS - Optimization Pass Order Sensitivity Graph",
+        "SCOS - Multi-Metric Pass Order Sensitivity Graph",
         fontsize=15,
         fontweight="bold",
         pad=20
@@ -184,17 +175,11 @@ def generate_visualization(graph):
     plt.close()
 
 
-
 def main():
 
-    print("=" * 55)
-    print("SCOS OPTIMIZATION DEPENDENCE GRAPH GENERATOR")
-    print("=" * 55)
-
-    if not os.path.exists(INPUT_CSV):
-        raise FileNotFoundError(
-            f"Missing input file: {INPUT_CSV}"
-        )
+    print("=" * 60)
+    print("SCOS MULTI-METRIC GRAPH GENERATOR")
+    print("=" * 60)
 
     graph = build_graph()
 
@@ -205,7 +190,7 @@ def main():
     print(f"Nodes: {graph.number_of_nodes()}")
     print(f"Edges: {graph.number_of_edges()}")
 
-    print("\nPass relationships:")
+    print("\nPass interactions:")
 
     for u, v, data in sorted(
         graph.edges(data=True),
@@ -215,16 +200,12 @@ def main():
 
         print(
             f"{u} <-> {v}: "
-            f"{data['weight']} bytes"
+            f"{data['weight']:.2f}"
         )
 
-    print("\nGraph saved successfully:")
-    print(OUTPUT_PNG)
-
-    print("\nGraphML saved:")
-    print(OUTPUT_GRAPHML)
+    print("\nPNG saved:", OUTPUT_PNG)
+    print("GraphML saved:", OUTPUT_GRAPHML)
 
 
 if __name__ == "__main__":
     main()
-
