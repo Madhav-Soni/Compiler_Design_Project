@@ -1,0 +1,38 @@
+SCOS MULTI-WORKLOAD RECOMMENDATION REPORT
+============================================================
+
+Workload: arithmetic
+Status: KEEP BASELINE
+Recommendation: Original O0
+Speedup: 1.0000x
+Best custom sequence: mem2reg -> simplifycfg -> adce
+Best custom speedup: 0.5261x
+------------------------------------------------------------
+Workload: array_processing
+Status: OPTIMIZATION RECOMMENDED
+Recommendation: LLVM O2
+Speedup: 1.0710x
+Best custom sequence: mem2reg -> dce -> simplifycfg
+Best custom speedup: 0.7776x
+------------------------------------------------------------
+Workload: branch_heavy
+Status: KEEP BASELINE
+Recommendation: Original O0
+Speedup: 1.0000x
+Best custom sequence: instcombine -> mem2reg -> simplifycfg
+Best custom speedup: 0.8161x
+------------------------------------------------------------
+Workload: function_heavy
+Status: OPTIMIZATION RECOMMENDED
+Recommendation: LLVM O1
+Speedup: 2.3968x
+Best custom sequence: mem2reg -> sroa -> simplifycfg
+Best custom speedup: 1.9626x
+------------------------------------------------------------
+
+CROSS-WORKLOAD LLVM COMPARISON
+LLVM O1: 1.1094x
+LLVM O2: 1.1756x
+LLVM O3: 1.1703x
+
+Recommendations are experimental and require validation on additional inputs and machines.

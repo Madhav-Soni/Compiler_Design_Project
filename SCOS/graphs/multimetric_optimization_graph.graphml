@@ -4,37 +4,40 @@
   <graph edgedefault="undirected">
     <node id="instcombine" />
     <node id="gvn" />
-    <node id="simplifycfg" />
     <node id="mem2reg" />
+    <node id="simplifycfg" />
     <node id="sroa" />
     <node id="dce" />
     <node id="adce" />
     <edge source="instcombine" target="gvn">
-      <data key="d0">20.88</data>
+      <data key="d0">21.54</data>
     </edge>
     <edge source="instcombine" target="simplifycfg">
-      <data key="d0">3.26</data>
+      <data key="d0">1.8</data>
     </edge>
     <edge source="instcombine" target="mem2reg">
       <data key="d0">0.12</data>
     </edge>
     <edge source="instcombine" target="sroa">
-      <data key="d0">0.07</data>
+      <data key="d0">0.09</data>
     </edge>
     <edge source="gvn" target="sroa">
       <data key="d0">0.13</data>
     </edge>
     <edge source="gvn" target="mem2reg">
-      <data key="d0">0.06</data>
+      <data key="d0">0.07</data>
     </edge>
-    <edge source="simplifycfg" target="mem2reg">
-      <data key="d0">2.86</data>
+    <edge source="gvn" target="simplifycfg">
+      <data key="d0">0.03</data>
     </edge>
-    <edge source="simplifycfg" target="sroa">
-      <data key="d0">2.86</data>
+    <edge source="mem2reg" target="simplifycfg">
+      <data key="d0">3.23</data>
     </edge>
     <edge source="mem2reg" target="sroa">
       <data key="d0">0.06</data>
+    </edge>
+    <edge source="simplifycfg" target="sroa">
+      <data key="d0">3.23</data>
     </edge>
   </graph>
 </graphml>

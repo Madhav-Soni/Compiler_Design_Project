@@ -1,0 +1,72 @@
+{
+    "minimum_improvement_threshold_percent": 5.0,
+    "workload_recommendations": [
+        {
+            "Workload": "arithmetic",
+            "Status": "KEEP BASELINE",
+            "Recommended Program": "Original O0",
+            "Baseline Runtime": 0.07172020804136992,
+            "Recommended Runtime": 0.07172020804136992,
+            "Speedup": 1.0,
+            "Improvement (%)": 0.0,
+            "Best Custom Sequence": "mem2reg -> simplifycfg -> adce",
+            "Best Custom Speedup": 0.5260604311416024,
+            "Fastest Measured Candidate": "LLVM O1",
+            "Fastest Candidate Speedup": 0.789809967693927
+        },
+        {
+            "Workload": "array_processing",
+            "Status": "OPTIMIZATION RECOMMENDED",
+            "Recommended Program": "LLVM O2",
+            "Baseline Runtime": 0.005602709017693996,
+            "Recommended Runtime": 0.005231375340372324,
+            "Speedup": 1.0709820368758407,
+            "Improvement (%)": 7.09820368758407,
+            "Best Custom Sequence": "mem2reg -> dce -> simplifycfg",
+            "Best Custom Speedup": 0.7776094814676938,
+            "Fastest Measured Candidate": "LLVM O2",
+            "Fastest Candidate Speedup": 1.0709820368758407
+        },
+        {
+            "Workload": "branch_heavy",
+            "Status": "KEEP BASELINE",
+            "Recommended Program": "Original O0",
+            "Baseline Runtime": 0.2960926671512425,
+            "Recommended Runtime": 0.2960926671512425,
+            "Speedup": 1.0,
+            "Improvement (%)": 0.0,
+            "Best Custom Sequence": "instcombine -> mem2reg -> simplifycfg",
+            "Best Custom Speedup": 0.8160507763144766,
+            "Fastest Measured Candidate": "LLVM O3",
+            "Fastest Candidate Speedup": 0.9907039067623548
+        },
+        {
+            "Workload": "function_heavy",
+            "Status": "OPTIMIZATION RECOMMENDED",
+            "Recommended Program": "LLVM O1",
+            "Baseline Runtime": 0.19543258426710963,
+            "Recommended Runtime": 0.08153762482106686,
+            "Speedup": 2.396839308184211,
+            "Improvement (%)": 139.6839308184211,
+            "Best Custom Sequence": "mem2reg -> sroa -> simplifycfg",
+            "Best Custom Speedup": 1.9625973629446247,
+            "Fastest Measured Candidate": "LLVM O1",
+            "Fastest Candidate Speedup": 2.396839308184211
+        }
+    ],
+    "standard_llvm_cross_workload_comparison": {
+        "LLVM O1": {
+            "geometric_mean_speedup": 1.1094,
+            "workloads_evaluated": 4
+        },
+        "LLVM O2": {
+            "geometric_mean_speedup": 1.1756,
+            "workloads_evaluated": 4
+        },
+        "LLVM O3": {
+            "geometric_mean_speedup": 1.1703,
+            "workloads_evaluated": 4
+        }
+    },
+    "note": "Recommendations apply to the tested workloads and measurement conditions. Validate with further trials."
+}

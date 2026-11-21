@@ -111,30 +111,39 @@ def generate_visualization(graph):
         for weight in edge_weights
     ]
 
-    plt.figure(figsize=(14, 10))
+    fig, ax = plt.subplots(
+        figsize=(14, 10),
+        facecolor="#0e1117"
+    )
+
+    ax.set_facecolor("#0e1117")
 
     nx.draw_networkx_edges(
         graph,
         position,
         width=edge_widths,
-        edge_color="steelblue",
-        alpha=0.75
+        edge_color="#56B4E9",
+        alpha=0.8,
+        ax=ax
     )
 
     nx.draw_networkx_nodes(
         graph,
         position,
         node_size=2800,
-        node_color="skyblue",
-        edgecolors="black",
-        linewidths=1.5
+        node_color="#176B87",
+        edgecolors="#56B4E9",
+        linewidths=2,
+        ax=ax
     )
 
     nx.draw_networkx_labels(
         graph,
         position,
         font_size=10,
-        font_weight="bold"
+        font_weight="bold",
+        font_color="white",
+        ax=ax
     )
 
     edge_labels = {
@@ -147,33 +156,36 @@ def generate_visualization(graph):
         position,
         edge_labels=edge_labels,
         font_size=9,
+        font_color="white",
         rotate=False,
         bbox={
-            "facecolor": "white",
+            "facecolor": "#161B22",
             "edgecolor": "none",
-            "alpha": 0.9,
-            "pad": 2
-        }
+            "alpha": 0.95,
+            "pad": 3
+        },
+        ax=ax
     )
 
-    plt.title(
+    ax.set_title(
         "SCOS - Multi-Metric Pass Order Sensitivity Graph",
         fontsize=15,
         fontweight="bold",
+        color="white",
         pad=20
     )
 
-    plt.axis("off")
-    plt.tight_layout()
+    ax.axis("off")
+    fig.tight_layout()
 
     plt.savefig(
         OUTPUT_PNG,
         dpi=300,
-        bbox_inches="tight"
+        bbox_inches="tight",
+        facecolor=fig.get_facecolor()
     )
 
-    plt.close()
-
+    plt.close(fig)
 
 def main():
 

@@ -1,1 +1,46 @@
+# Python virtual environment
 .venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Temporary dashboard backup
+app_backup.py
+
+# macOS files
+.DS_Store
+
+# Generated executables
+results/benchmark_O0
+results/benchmark_O1
+results/benchmark_O2
+results/benchmark_O3
+results/*_test
+
+# Generated LLVM IR
+results/*.ll
+results/pass_tests/*.ll
+results/dependencies/*.ll
+results/sequences/*.ll
+
+# Generated benchmark executables
+results/fair_benchmark/
+results/reference/benchmark_O*
+results/sequences/baseline
+results/sequences/candidate_*
+results/multi_benchmark/*/program_*
+results/multi_benchmark/*/default_O*.ll
+results/multi_benchmark/*/ir/
+
+# Temporary Python cache
+src/__pycache__/
+
+# Old and generated result files
+/results/benchmark_results.csv
+/results/ir_analysis.csv
+/results/dependencies/order_sensitivity.csv
+/results/reference/
+/results/scos_recommendation.json
+/results/scos_recommendation.txt
+/results/sequences/
